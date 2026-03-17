@@ -8,8 +8,14 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 import cohere
 
-# Initialize Cohere Client
-co = cohere.Client('gjpE03xQmQPgbhzhDz0m85dD1c0rDB7ua2ONqCfa') 
+# Initialize Environment & Cohere
+load_dotenv()
+api_key = os.getenv('COHERE_API_KEY')
+
+if not api_key:
+    raise ValueError("COHERE_API_KEY not found in .env file!")
+
+co = cohere.Client(api_key)
 
 def get_mock_inventory():
     filename = "food_ingredients_and_allergens.csv"
